@@ -1,0 +1,24 @@
+{
+    "http": {
+        "port": 8080
+    },
+    "database": {
+        "host": "localhost",
+        "port": 5432,
+        "database": "bzbwwf",
+        "user": "bzbwwf",
+        "password": "trfd39hh"
+    },
+    "security": {
+        "jwt": {
+            "algorithm":"HS256",
+            "expiresIn": "600s",
+            "secret": "M#bDn>XJ!3==",
+            "issuer": "@emavok/um"
+        },
+        "bcrypt": {
+            "cost": 10,
+            "version": "a"
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "@emavok/node-ts-rest-api-server",
+  "version": "1.0.0",
+  "description": "A TypeScript REST API server for Node.js with authentication and authorization.",
+  "main": "dist/@emavok/node-ts-rest-api-server/index.js",
+  "types": "dist/@emavok/node-ts-rest-api-server/index.d.ts",
+  "scripts": {
+    "tsc": "tsc",
+    "tsc-paths": "tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "lint": "tslint -c tslint.json './src/**/*.ts'",
+    "copy-assets": "copyfiles src/**/*.sql src/**/*.ejs dist/",
+    "clean": "rimraf dist",
+    "start": "nodemon",
+    "build": "npm run clean && npm run tsc && npm run tsc-paths && npm run copy-assets && npm run post-build",
+    "build-prod": "npm run clean && npm run lint && npm run build",
+    "post-build": "node scripts/post-build.js",
+    "serve": "node ./dist/@emavok/node-ts-rest-api-server/bin.js",
+    "serve-debug": "node --inspect-brk ./dist/@emavok/node-ts-rest-api-server/bin.js"
+  },
+  "author": "JVM",
+  "license": "xFIS proprietary",
+  "private": true,
+  "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@types/jsonwebtoken": "^8.3.5",
+    "@types/node": "^12.7.12",
+    "@types/passport-jwt": "^3.0.3",
+    "copyfiles": "^2.1.1",
+    "nodemon": "^1.19.4",
+    "rimraf": "^3.0.0",
+    "tscpaths": "0.0.9",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "commander": "^3.0.2",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.3.5",
+    "pg-promise": "^9.3.3",
+    "uuid": "^3.3.3"
+  },
+  "engines": {
+    "node": ">= 10.0.0 < 11.0.0"
+  }
+}

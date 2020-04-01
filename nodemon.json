@@ -1,0 +1,12 @@
+{
+    "ignore": [
+        "node_modules",
+        "build"
+    ],
+    "watch": ["src", "config"],
+    "exec": "npm run build && npm run serve-debug",
+    "env": {
+        "NODE_ENV": "development"
+    },
+    "ext": "ts,json,sql,ejs"
+}

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "./dist/@emavok",
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@emavok/*": [ "./src/@emavok/*" ]
+    },
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
