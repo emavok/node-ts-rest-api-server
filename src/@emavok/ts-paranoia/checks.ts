@@ -184,16 +184,16 @@ export function isNotArrayEmpty( value: any[] ): boolean {
     return value.length > 0;
 }
 
-export function isStringEmpty( value: string ): boolean {
+export function isEmptyString( value: string ): boolean {
     if (!isString(value)) {
-        throw new Error('isStringEmpty: value is not a string.');
+        return false;
     }
     return value.length === 0;
 }
 
-export function isNotStringEmpty( value: any[] ): boolean {
-    if (!isString(value)) {
-        throw new Error('isNotStringEmpty: value is not a string.');
+export function isNonEmptyString( value: string ): boolean {
+    if (isString(value) && value.length > 0) {
+        return true;
     }
-    return value.length > 0;
+    return false;
 }
