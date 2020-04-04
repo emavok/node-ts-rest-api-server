@@ -133,10 +133,10 @@ export class ApiErrorUtils {
 
     // ----------------------------------------------------------------------------------------
     /**
-     * Creates an IApiError from various details
+     * Creates an IApiError
      * @param name Error name
      * @param message Error message
-     * @param details Optional error details
+     * @param data Optional error data
      * @param status HTTP status code
      * @return Error object
      */
@@ -144,13 +144,13 @@ export class ApiErrorUtils {
     private static createError(
         name: string,
         message: string,
-        details: any | undefined,
+        data: any | undefined,
         status: number,
     ): IApiError {
         const error: IApiError = new Error();
         error.name = name;
         error.message = message;
-        error.details = details;
+        error.data = data;
         error.status = status;
         return error;
     }

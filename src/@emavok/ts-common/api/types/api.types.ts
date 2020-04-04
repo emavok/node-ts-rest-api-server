@@ -9,6 +9,38 @@ import {
 } from 'express';
 
 // ------------------------------------------------------------------------------------------------
+/** Augmented request object containing a user object with an id and a request id */
+// ------------------------------------------------------------------------------------------------
+export interface IRequestWithId extends Request {
+    reqId?: string;
+}
+
+// ------------------------------------------------------------------------------------------------
+/** Augmented request object containing auth data */
+// ------------------------------------------------------------------------------------------------
+export interface IRequestWithAuth extends Request {
+    user?: {
+        id?: string | number;
+    };
+    token?: {
+        id?: string | number;
+    };
+}
+
+// ------------------------------------------------------------------------------------------------
+/** Augmented request object containing a user object with an id and a request id */
+// ------------------------------------------------------------------------------------------------
+export interface IAugmentedRequest extends Request {
+    user?: {
+        id?: string | number;
+    };
+    token?: {
+        id?: string | number;
+    };
+    reqId?: string;
+}
+
+// ------------------------------------------------------------------------------------------------
 /** API endpoint controller function */
 // ------------------------------------------------------------------------------------------------
 export type ApiEndpointFunction = ( req: Request, res: Response ) => void;
@@ -105,10 +137,10 @@ export interface IApiSortCriterion {
 /** API pagination criterion for accessing lists */
 // ------------------------------------------------------------------------------------------------
 export interface IApiPaginationCriterion {
-    /** index of first item to be returned */
-    offset: number;
-    /** number of items to be returned */
-    limit: number;
+    /** offset - index of first item to be returned */
+    o: number;
+    /** limit - number of items to be returned */
+    l: number;
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -151,7 +183,7 @@ export interface IApiError extends Error {
     /** optional error code */
     code?: string | number;
     /** optional error details */
-    details?: any;
+    data?: any;
     /** optional stack */
     stack?: any;
 }
@@ -181,7 +213,7 @@ export interface IApiResponse<TYPE> {
 // ------------------------------------------------------------------------------------------------
 export interface IApiPaginatedResponse<TYPE> extends IApiResponse<TYPE> {
     /** pagination information for lists */
-    pagination?: IApiPaginationResponse;
+    pagination: IApiPaginationResponse;
 }
 
 // ------------------------------------------------------------------------------------------------

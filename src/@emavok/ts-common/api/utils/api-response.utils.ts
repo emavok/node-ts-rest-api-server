@@ -30,7 +30,7 @@ export class ApiResponseUtils {
      */
     // ----------------------------------------------------------------------------------------
     public static success(response: Response, payload: any) {
-        const responseDto: IApiResponse<any> = ApiResponseUtils.createSuccessResponse(payload);
+        const responseDto: IApiResponse<any> = ApiResponseUtils._createSuccessResponse(payload);
         return response
             .set(API_HTTP_CACHE_CONTROL_HEADERS)
             .status(EApiHttpCodes.OK)
@@ -46,7 +46,7 @@ export class ApiResponseUtils {
     // ----------------------------------------------------------------------------------------
     public static error(response: Response, error: any) {
         Logger.getGlobal().error(`${error.name}: ${error.message}`, { error: error });
-        const errorResponse: IApiErrorResponse = ApiResponseUtils.createErrorResponse(error);
+        const errorResponse: IApiErrorResponse = ApiResponseUtils._createErrorResponse(error);
         return response
             .set(API_HTTP_CACHE_CONTROL_HEADERS)
             .status(error.status || EApiHttpCodes.INTERNAL_ERROR)
@@ -60,7 +60,7 @@ export class ApiResponseUtils {
      * @return API success response object
      */
     // ----------------------------------------------------------------------------------------
-    private static createSuccessResponse( payload: any ): IApiResponse<any> {
+    private static _createSuccessResponse( payload: any ): IApiResponse<any> {
         assertNotUndefined( payload, 'Missing payload parameter');
         const response: IApiResponse<any> = {
             data: payload,
@@ -75,12 +75,12 @@ export class ApiResponseUtils {
      * @return API error response object
      */
     // ----------------------------------------------------------------------------------------
-    private static createErrorResponse( error: any ): IApiErrorResponse {
+    private static _createErrorResponse( error: any ): IApiErrorResponse {
         assertNotUndefined( error, 'Missing error parameter');
         const errorResponse: IApiErrorResponse = {
             error: {
                 code: error.code,
-                details: error.details,
+                data: error.data,
                 message: error.message,
                 name: error.name,
                 // FIXME

@@ -33,6 +33,7 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
+    "@types/uuid": "^7.0.2",
     "commander": "^3.0.2",
     "ejs": "^2.7.1",
     "express": "^4.17.1",

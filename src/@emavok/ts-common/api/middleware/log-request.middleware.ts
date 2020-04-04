@@ -2,31 +2,19 @@
 // Middleware to log requests
 // ------------------------------------------------------------------------------------------------
 
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 // ------------------------------------------------------------------------------------------------
 
 import { Logger } from '@emavok/node-ts-logger';
 
 import { isNullOrUndefined } from '@emavok/ts-paranoia';
-
-// ------------------------------------------------------------------------------------------------
-/** Augmented request object containing a user object with an id and a request id */
-// ------------------------------------------------------------------------------------------------
-interface IAugmentedRequest extends Request {
-    user?: {
-        id?: string | number;
-    };
-    reqId?: string | number;
-    token?: {
-        id?: string | number;
-    };
-}
+import { IAugmentedRequest } from '../types/api.types';
 
 // ------------------------------------------------------------------------------------------------
 /** Middleware that logs authenticated requests */
 // ------------------------------------------------------------------------------------------------
-export function logSecuredRequestMiddleware(
+export function mwLogSecuredRequest(
     request: IAugmentedRequest,
     response: Response,
     next: (error?: any) => void,
@@ -71,7 +59,7 @@ export function logSecuredRequestMiddleware(
 // ------------------------------------------------------------------------------------------------
 /** Middleware that logs public requests */
 // ------------------------------------------------------------------------------------------------
-export function logPublicRequestMiddleware(
+export function mwLogPublicRequest(
     request: IAugmentedRequest,
     response: Response,
     next: (error?: any) => void,

@@ -15,8 +15,6 @@ import {
     IApiSortCriterion,
 } from '../types/api.types';
 
-import { ApiSchema } from '../schema/api.schema';
-
 // ------------------------------------------------------------------------------------------------
 /** REST API request utilities class */
 // ------------------------------------------------------------------------------------------------
@@ -35,7 +33,7 @@ export class ApiRequestUtils {
         let filter: IApiFilterCriterion[] | undefined;
         if (isNonEmptyString(filterStr)) {
             const filterObj: any = JSON.parse( filterStr );
-            ApiSchema.validateApiFilterCriteria(filterObj, true);
+            // TODO: validate
             filter = filterObj;
         }
 
@@ -44,7 +42,7 @@ export class ApiRequestUtils {
         let sort: IApiSortCriterion[] | undefined;
         if (isNonEmptyString(sortStr)) {
             const sortObj: any = JSON.parse( sortStr );
-            ApiSchema.validateApiSortCriteria(sortObj, true);
+            // TODO: validate
             sort = sortObj;
         }
 
@@ -53,7 +51,7 @@ export class ApiRequestUtils {
         let pagination: IApiPaginationCriterion | undefined;
         if (isNonEmptyString(paginationStr)) {
             const paginationObj: any = JSON.parse( paginationStr );
-            ApiSchema.validateApiPaginationCriteria(paginationObj, true);
+            // TODO: validate
             pagination = paginationObj;
         }
 

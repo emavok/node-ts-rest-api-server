@@ -1,11 +1,20 @@
 // ------------------------------------------------------------------------------------------------
-// REST API server config types
+// Middleware to add unique request ids
 // ------------------------------------------------------------------------------------------------
 
+import { Response } from 'express';
+
+import { v4 } from 'uuid';
+
+import { IRequestWithId } from '../types';
+
 // ------------------------------------------------------------------------------------------------
-/** REST API server config */
+/** Middleware that adds unique request ids */
 // ------------------------------------------------------------------------------------------------
-export interface IRestApiServerConfig {
-    /** http port number */
-    port: number;
+export function mwAddRequestId( request: IRequestWithId, response: Response, next: (error?: any) => void) {
+    // create a request uuid
+    request.reqId = v4();
+
+    // call next to proceed
+    next();
 }

@@ -29,7 +29,7 @@ import {
  * @return Middleware function
  */
 // ------------------------------------------------------------------------------------------------
-export function validateBodyMiddleware( schema: IValidationSchema )
+export function mwValidateBody( schema: IValidationSchema )
 : (( req: Request, res: Response, next: NextFunction) => void) {
     return ( req: Request, res: Response, next: NextFunction) => {
         const err: ValidationErrors | null = validate( schema, req.body );

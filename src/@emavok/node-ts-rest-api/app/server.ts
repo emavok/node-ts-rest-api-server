@@ -16,6 +16,13 @@ import {
     Logger,
 } from '@emavok/node-ts-logger';
 
+import {
+    mwAddRequestId,
+    mwLogPublicRequest,
+} from '@emavok/ts-common';
+
+import { publicReceipeRoutes } from '@emavok/node-family-cookbook';
+
 // ------------------------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------------------------
@@ -80,6 +87,10 @@ export class Server {
 
         // enable automatic parsing of application/x-www-form-urlencoded
         this._app.use(express.urlencoded({ extended: true })) ;
+
+        // add request id middleware
+        this._app.use(mwAddRequestId);
+
     }
 
     // --------------------------------------------------------------------------------------------
@@ -92,13 +103,15 @@ export class Server {
         const publicRoutes: Router = Router();
 
         // add public logging middleware
-        // publicRoutes.use(logPublicRequestMiddleware);
+        publicRoutes.use(mwLogPublicRequest);
 
         // add public routes here
         // publicRoutes.use(createVersionRoute(this._version));
 
         // add public login route
         // publicRoutes.use('/security/auth', this._securityProvider.createPublicLoginRoute());
+
+        publicRoutes.use('/receipes', publicReceipeRoutes() );
 
         // add router
         this._app.use('/api/public', publicRoutes );
