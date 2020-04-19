@@ -20,139 +20,155 @@ import {
     isNumber,
     isObject,
     isString,
+    isStringEmpty,
+    isStringNotEmpty,
     isType,
     isUndefined,
     isValidNumber,
 } from './checks';
 
+import { AssertionError } from './assertion.error';
+
 export function assertType( value: any, type: ETypes, msg?: string ) {
     if (!isType(value, type)) {
-        throw new Error(msg || 'assertType failed.' );
+        throw new AssertionError('assertType', value, { type: type }, msg );
     }
 }
 
 export function assertNull( value: any, msg?: string ) {
     if (!isNull(value)) {
-        throw new Error(msg || 'assertNull failed.' );
+        throw new AssertionError('assertNull', value, undefined, msg );
     }
 }
 
 export function assertNotNull( value: any, msg?: string ) {
     if (isNotNull(value)) {
-        throw new Error(msg || 'assertNotNull failed.');
+        throw new AssertionError('assertNotNull', value, undefined, msg );
     }
 }
 
 export function assertUndefined( value: any, msg?: string ) {
     if (!isUndefined(value)) {
-        throw new Error(msg || 'assertUndefined failed');
+        throw new AssertionError('assertUndefined', value, undefined, msg );
     }
 }
 
 export function assertNotUndefined( value: any, msg?: string ) {
     if (!isNotUndefined(value)) {
-        throw new Error(msg || 'assertNotUndefined failed');
+        throw new AssertionError('assertNotUndefined', value, undefined, msg );
     }
 }
 
 export function assertNullOrUndefined( value: any, msg?: string ) {
     if (!isNullOrUndefined(value)) {
-        throw new Error(msg || 'assertNullOrUndefined failed');
+        throw new AssertionError('assertNullOrUndefined', value, undefined, msg );
     }
 }
 
 export function assertNotNullOrUndefined( value: any, msg?: string ) {
     if (!isNotNullOrUndefined(value)) {
-        throw new Error(msg || 'assertNotNullOrUndefined failed');
+        throw new AssertionError('assertNotNullOrUndefined', value, undefined, msg );
     }
 }
 
 export function assertString( value: any, msg?: string ) {
     if (!isString(value)) {
-        throw new Error(msg || 'assertString failed');
+        throw new AssertionError('assertString', value, undefined, msg );
+    }
+}
+
+export function assertStringEmpty( value: any, msg?: string ) {
+    if (!isStringEmpty(value)) {
+        throw new AssertionError('assertStringEmpty', value, undefined, msg );
+    }
+}
+
+export function assertStringNotEmpty( value: any, msg?: string ) {
+    if (!isStringNotEmpty(value)) {
+        throw new AssertionError('assertStringNotEmpty', value, undefined, msg );
     }
 }
 
 export function assertNumber( value: any, msg?: string ) {
     if (!isNumber(value)) {
-        throw new Error(msg || 'assertNumber failed');
+        throw new AssertionError('assertNumber', value, undefined, msg );
     }
 }
 
 export function assertValidNumber( value: any, msg?: string ) {
     if (!isValidNumber(value)) {
-        throw new Error(msg || 'assertValidNumber failed');
+        throw new AssertionError('asassertValidNumber', value, undefined, msg );
     }
 }
 
 export function assertBoolean( value: any, msg?: string ) {
     if (!isBoolean(value)) {
-        throw new Error(msg || 'assertBoolean failed');
+        throw new AssertionError('assertBoolean', value, undefined, msg );
     }
 }
 
 export function assertObject( value: any, msg?: string ) {
     if (!isObject(value)) {
-        throw new Error(msg || 'assertObject failed');
+        throw new AssertionError('assertObject', value, undefined, msg );
     }
 }
 
 export function assertArray( value: any, msg?: string ) {
     if (!isArray(value)) {
-        throw new Error(msg || 'assertArray failed');
+        throw new AssertionError('assertArray', value, undefined, msg );
     }
 }
 
 export function assertIsoDate( value: any, msg?: string ) {
     if (!isIsoDate(value)) {
-        throw new Error(msg || 'assertIsoDate failed');
+        throw new AssertionError('assertIsoDate', value, undefined, msg );
     }
 }
 
 export function assertMin( value: any, min: number, msg?: string ) {
     if (!isMin(value, min)) {
-        throw new Error(msg || 'assertMin failed');
+        throw new AssertionError('assertMin', value, { min: min }, msg );
     }
 }
 
 export function assertMax( value: any, max: number, msg?: string ) {
     if (!isMax(value, max)) {
-        throw new Error(msg || 'assertMax failed');
+        throw new AssertionError('assertMax', value, { max: max }, msg );
     }
 }
 
 export function assertMinLength( value: any, minLength: number, msg?: string ) {
     if (!isMinLength(value, minLength)) {
-        throw new Error(msg || 'assertMinLength failed');
+        throw new AssertionError('assertMinLength', value, { minLength: minLength }, msg );
     }
 }
 
 export function assertMaxLength( value: any, maxLength: number, msg?: string ) {
     if (!isMaxLength(value, maxLength)) {
-        throw new Error(msg || 'assertMaxLength failed');
+        throw new AssertionError('assertMaxLength', value, { maxLength: maxLength }, msg );
     }
 }
 
 export function assertTrue( value: any, msg?: string ) {
     if (value !== true) {
-        throw new Error(msg || 'assertTrue failed.' );
+        throw new AssertionError('assertTrue', value, undefined, msg );
     }
 }
 
 export function assertFalse( value: any, msg?: string ) {
     if (value !== false) {
-        throw new Error(msg || 'assertFalse failed.' );
+        throw new AssertionError('assertFalse', value, undefined, msg );
     }
 }
 
 export function assertTruthy( value: any, msg?: string ) {
     if (!value) {
-        throw new Error(msg || 'assertTruthy failed.' );
+        throw new AssertionError('assertTruthy', value, undefined, msg );
     }
 }
 
 export function assertFalsy( value: any, msg?: string ) {
     if (value) {
-        throw new Error(msg || 'assertFalsy failed.' );
+        throw new AssertionError('assertFalsy', value, undefined, msg );
     }
 }

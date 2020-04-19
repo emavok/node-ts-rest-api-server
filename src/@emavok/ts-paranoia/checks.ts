@@ -32,6 +32,20 @@ export function isString( value: any ): value is string {
     return (typeof value === ETypes.STRING);
 }
 
+export function isStringEmpty( value: string ): boolean {
+    if (!isString(value)) {
+        return false;
+    }
+    return value.length === 0;
+}
+
+export function isStringNotEmpty( value: string ): boolean {
+    if (isString(value) && value.length > 0) {
+        return true;
+    }
+    return false;
+}
+
 export function isNumber( value: any ): value is number {
     return (typeof value === ETypes.NUMBER);
 }
@@ -182,18 +196,4 @@ export function isNotArrayEmpty( value: any[] ): boolean {
         throw new Error('isNotArrayEmpty: value is not an array.');
     }
     return value.length > 0;
-}
-
-export function isEmptyString( value: string ): boolean {
-    if (!isString(value)) {
-        return false;
-    }
-    return value.length === 0;
-}
-
-export function isNonEmptyString( value: string ): boolean {
-    if (isString(value) && value.length > 0) {
-        return true;
-    }
-    return false;
 }

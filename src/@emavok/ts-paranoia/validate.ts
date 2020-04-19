@@ -16,6 +16,8 @@ import {
     isNull,
 } from './checks';
 
+import { ValidationError } from './validation.error';
+
 // ------------------------------------------------------------------------------------------------
 /**
  * Validates a value against a validation schema
@@ -42,4 +44,18 @@ export function hasValidationErrors( err: ValidationErrors | null ): err is Vali
         return false;
     }
     return true;
+}
+
+// ------------------------------------------------------------------------------------------------
+/**
+ * Validates a value against a validation schema and throws a ValidationError on failure
+ * @param def Validation schema
+ * @param value Value to validate
+ */
+// ------------------------------------------------------------------------------------------------
+export function assertValidation( value: any, def: IValidationSchema ) {
+    const errors: ValidationErrors | null = validate( def, value );
+    if (hasValidationErrors(errors)) {
+        throw new ValidationError(errors, value, def );
+    }
 }

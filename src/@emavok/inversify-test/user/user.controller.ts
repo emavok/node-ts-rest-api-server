@@ -19,7 +19,7 @@ import {
     isNull,
 } from '@emavok/ts-paranoia';
 
-import { IContext } from './common.types';
+import { IContext } from '../common.types';
 
 import {
     DI_USER_SERVICE,
@@ -27,6 +27,12 @@ import {
     IUserController,
     IUserService,
 } from './user.types';
+
+import {
+    DI_LOGGER_SERVICE,
+    ILogger,
+    ILoggerService,
+} from '../base/base.types';
 
 @injectable()
 // ------------------------------------------------------------------------------------------------
@@ -40,12 +46,17 @@ export class UserController implements IUserController {
     /** router */
     private _router: Router | null = null;
 
+    /** logger */
+    private _logger: ILogger;
+
     // --------------------------------------------------------------------------------------------
     /** Constructor */
     // --------------------------------------------------------------------------------------------
     constructor(
+        @inject(DI_LOGGER_SERVICE) loggerService: ILoggerService,
         @inject(DI_USER_SERVICE) userService: IUserService
     ) {
+        this._logger = loggerService.getInstance(__filename);
         this._userService = userService;
     }
 
@@ -75,6 +86,7 @@ export class UserController implements IUserController {
     // --------------------------------------------------------------------------------------------
     public getOne(req: Request, res: Response): void {
         try {
+            this._logger.info('GET /user/:id - version');
             const ctx: Partial<IContext> = {
                 requestId: 'getUser-' + Date.now()
             };

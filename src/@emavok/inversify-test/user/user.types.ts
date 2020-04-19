@@ -7,7 +7,7 @@ import {
     IContext,
     IRepository,
     TApiControllerFn,
-} from './common.types';
+} from '../common.types';
 
 export interface IUser {
     id: number;

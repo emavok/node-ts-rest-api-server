@@ -1,26 +1,14 @@
 import 'reflect-metadata';
 
 import {
-    container
-} from './container.config';
-
-import express from 'express';
+    APP_CONTAINER
+} from './bootstrap';
 
 import {
-    DI_USER_CONTROLLER,
-    IUserController,
-} from './user.types';
+    DI_APPLICATION,
+    IApplication,
+} from './base/app/app.types';
 
-const app: express.Application = express();
+const app: IApplication = APP_CONTAINER.get<IApplication>(DI_APPLICATION);
 
-app.use(express.json());
-
-app.use(express.urlencoded({ extended: true })) ;
-
-const userController: IUserController = container.get<IUserController>(DI_USER_CONTROLLER);
-app.use('/api/public/user', userController.getRouter() );
-
-app.listen( 3000, () => {
-    // tslint:disable-next-line:no-console
-    console.log('Hurra');
-});
+app.start();

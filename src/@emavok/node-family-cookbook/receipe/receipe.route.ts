@@ -51,7 +51,7 @@ function _getReceipe( req: IAugmentedRequest, res: Response ) {
                 token: req.token
             };
             // get receipes
-            return ReceipeService.getInstance().getAll(ctx, listQueryParam);
+            return ReceipeService.getInstance().getAll(ctx, {});
         }).then( (receipes: IApiPaginatedResponse<IReceipe[]>) => {
             ApiResponseUtils.success(res, receipes);
         }).catch( (err: any) => {

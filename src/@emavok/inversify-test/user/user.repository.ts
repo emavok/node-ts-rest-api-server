@@ -11,9 +11,9 @@ import {
     IUserRepository,
 } from './user.types';
 
-import { IContext } from './common.types';
+import { IContext } from '../common.types';
 
-import { EntityNotFoundError } from './errors/not-found.error';
+import { EntityNotFoundError } from '../errors/not-found.error';
 
 import { assertValidNumber } from '@emavok/ts-paranoia';
 

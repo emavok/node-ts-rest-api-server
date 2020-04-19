@@ -2,6 +2,11 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": [ "ES5", "DOM" ],
+    "types": [ "reflect-metadata" ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "sourceMap": true,
     "outDir": "./dist/@emavok",
     "strict": true,

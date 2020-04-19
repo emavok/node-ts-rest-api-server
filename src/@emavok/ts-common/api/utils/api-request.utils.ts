@@ -6,7 +6,7 @@ import { Request } from 'express';
 
 // ------------------------------------------------------------------------------------------------
 
-import { isNonEmptyString } from '@emavok/ts-paranoia';
+import { isStringNotEmpty } from '@emavok/ts-paranoia';
 
 import {
     IApiFilterCriterion,
@@ -31,7 +31,7 @@ export class ApiRequestUtils {
         // extract and validate filter
         const filterStr: string = request.query.filter || request.query.f;
         let filter: IApiFilterCriterion[] | undefined;
-        if (isNonEmptyString(filterStr)) {
+        if (isStringNotEmpty(filterStr)) {
             const filterObj: any = JSON.parse( filterStr );
             // TODO: validate
             filter = filterObj;
@@ -40,7 +40,7 @@ export class ApiRequestUtils {
         // extract and validate sort
         const sortStr: string = request.query.sort || request.query.s;
         let sort: IApiSortCriterion[] | undefined;
-        if (isNonEmptyString(sortStr)) {
+        if (isStringNotEmpty(sortStr)) {
             const sortObj: any = JSON.parse( sortStr );
             // TODO: validate
             sort = sortObj;
@@ -49,7 +49,7 @@ export class ApiRequestUtils {
         // extract and validate pagination
         const paginationStr: string = request.query.pagination || request.query.p;
         let pagination: IApiPaginationCriterion | undefined;
-        if (isNonEmptyString(paginationStr)) {
+        if (isStringNotEmpty(paginationStr)) {
             const paginationObj: any = JSON.parse( paginationStr );
             // TODO: validate
             pagination = paginationObj;
