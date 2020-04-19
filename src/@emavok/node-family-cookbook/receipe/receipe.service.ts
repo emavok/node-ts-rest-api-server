@@ -3,12 +3,13 @@
 // ------------------------------------------------------------------------------------------------
 
 import {
-    IApiListQueryParameter,
-    IApiPaginatedResponse,
-    IApiPaginationResponse,
+    IListQueryParameter,
+    IPaginatedList,
 } from '@emavok/ts-common';
 
 import { IReceipe } from './receipe.types';
+
+import { ReceipeRepository } from './receipe.repository';
 
 // ------------------------------------------------------------------------------------------------
 // API route for receipes
@@ -42,31 +43,7 @@ export class ReceipeService {
      * @returns Promise of a paginated receipe[] response
      */
     // --------------------------------------------------------------------------------------------
-    public getAll( ctx: any, listQueryParam: IApiListQueryParameter ): Promise<IApiPaginatedResponse<IReceipe[]>> {
-        return Promise.resolve()
-            .then( () => {
-                const data: IReceipe[] = [
-                    {
-                        id: 1,
-                        title: 'Gulasch',
-                    }, {
-                        id: 2,
-                        title: 'Spätzle',
-                    }, {
-                        id: 3,
-                        title: 'Ratatouille'
-                    }
-                ];
-                const pagination: IApiPaginationResponse = {
-                    offset: 0,
-                    limit: 10,
-                    total: 3
-                };
-                const response: IApiPaginatedResponse<IReceipe[]> = {
-                    data: data,
-                    pagination: pagination
-                };
-                return response;
-            });
+    public getAll( ctx: any, listQueryParam: IListQueryParameter ): Promise<IPaginatedList<IReceipe>> {
+        return ReceipeRepository.getInstance().getAll( ctx, listQueryParam );
     }
 }

@@ -8,6 +8,10 @@ import {
     Response,
 } from 'express';
 
+import {
+    IPagination
+} from '@emavok/ts-common';
+
 // ------------------------------------------------------------------------------------------------
 /** Augmented request object containing a user object with an id and a request id */
 // ------------------------------------------------------------------------------------------------
@@ -69,95 +73,6 @@ export enum EApiHttpCodes {
 }
 
 // ------------------------------------------------------------------------------------------------
-/** HTTP cache control headers to disable caching */
-// ------------------------------------------------------------------------------------------------
-export const API_HTTP_CACHE_CONTROL_HEADERS = {
-    'Cache-control': 'no-cache, must-revalidate, max-age=0',
-    'Expires': 'Thu, 01 Jan 1970 01:00:00 GMT',
-    'Pragma': 'no-cache',
-};
-
-// ------------------------------------------------------------------------------------------------
-/** Filter operators */
-// ------------------------------------------------------------------------------------------------
-export enum EApiFilterOperator {
-    EQUAL = '=',
-    NOT_EQUAL = '!=',
-    GREATER_THAN = '>',
-    GREATER_EQUALS = '>=',
-    LESS_THAN = '<',
-    LESS_EQUALS = '<=',
-    LIKE = '~',
-    NOT_LIKE = '!~',
-    ILIKE = '~~',
-    NOT_ILIKE = '!~~',
-    IS_NULL = '0',
-    IS_NOT_NULL = '!0',
-    IN = '[]',
-    NOT_IN = '![]',
-}
-
-// ------------------------------------------------------------------------------------------------
-/** Sort direction */
-// ------------------------------------------------------------------------------------------------
-export enum EApiSortDirection {
-    /** Ascending */
-    ASC = 'ASC',
-    /** Descending */
-    DESC = 'DESC',
-    // ASC_NULL_FIRST
-    // ASC_NULL_LAST
-    // DESC_NULL_FIRST
-    // DESC_NULL_LAST
-}
-
-// ------------------------------------------------------------------------------------------------
-/** API filter criterion for accessing lists */
-// ------------------------------------------------------------------------------------------------
-export interface IApiFilterCriterion {
-    /** attribute to filter */
-    a: string;
-    /** operator */
-    o: EApiFilterOperator;
-    /** value to compare to */
-    v: any;
-}
-
-// ------------------------------------------------------------------------------------------------
-/** API sort criterion  for accessing lists */
-// ------------------------------------------------------------------------------------------------
-export interface IApiSortCriterion {
-    /** attribute to sort */
-    a: string;
-    /** sort direction */
-    d: EApiSortDirection;
-}
-
-// ------------------------------------------------------------------------------------------------
-/** API pagination criterion for accessing lists */
-// ------------------------------------------------------------------------------------------------
-export interface IApiPaginationCriterion {
-    /** offset - index of first item to be returned */
-    o: number;
-    /** limit - number of items to be returned */
-    l: number;
-}
-
-// ------------------------------------------------------------------------------------------------
-/** API pagination criteria for accessing lists */
-// ------------------------------------------------------------------------------------------------
-export interface IApiListQueryParameter {
-    /** Optional filter criteria */
-    filter?: IApiFilterCriterion[];
-
-    /** Optional pagination criterion */
-    pagination?: IApiPaginationCriterion;
-
-    /** Optional sort criteria */
-    sort?: IApiSortCriterion[];
-}
-
-// ------------------------------------------------------------------------------------------------
 /** REST API error types */
 // ------------------------------------------------------------------------------------------------
 export enum EApiErrors {
@@ -189,16 +104,13 @@ export interface IApiError extends Error {
 }
 
 // ------------------------------------------------------------------------------------------------
-/** REST API pagination response dto */
+/** HTTP cache control headers to disable caching */
 // ------------------------------------------------------------------------------------------------
-export interface IApiPaginationResponse {
-    /** start index of result list */
-    offset: number;
-    /** window size */
-    limit: number;
-    /** total number of entities */
-    total: number;
-}
+export const API_HTTP_CACHE_CONTROL_HEADERS = {
+    'Cache-control': 'no-cache, must-revalidate, max-age=0',
+    'Expires': 'Thu, 01 Jan 1970 01:00:00 GMT',
+    'Pragma': 'no-cache',
+};
 
 // ------------------------------------------------------------------------------------------------
 /** REST API response */
@@ -213,7 +125,7 @@ export interface IApiResponse<TYPE> {
 // ------------------------------------------------------------------------------------------------
 export interface IApiPaginatedResponse<TYPE> extends IApiResponse<TYPE> {
     /** pagination information for lists */
-    pagination: IApiPaginationResponse;
+    pagination: IPagination;
 }
 
 // ------------------------------------------------------------------------------------------------
