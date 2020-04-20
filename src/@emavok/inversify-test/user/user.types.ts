@@ -16,6 +16,7 @@ export interface IUserRepository extends IRepository<number, IUser> {}
 
 export interface IUserService {
     find(ctx: Partial<IContext>, user: number): IUser;
+    create(ctx: Partial<IContext>, user: Partial<IUser>): IUser;
 }
 
 export const DI_USER_REPOSITORY = Symbol.for('UserRepository');

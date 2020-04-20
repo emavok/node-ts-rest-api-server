@@ -10,6 +10,7 @@ import {
 import {
     assertStringNotEmpty,
     assertValidNumber,
+    ETypes,
 } from '@emavok/ts-paranoia';
 
 import {
@@ -31,11 +32,13 @@ import {
 import { Controller } from './controller';
 
 import {
+    bodyValidation,
+    controller,
     get,
-    restController,
+    post,
 } from './decorators/rest.decorator';
 
-@restController('/user')
+@controller('/user')
 @injectable()
 // ------------------------------------------------------------------------------------------------
 /** User REST controller */
@@ -74,6 +77,28 @@ export class AnotherUserController extends Controller implements IApiController 
         const id: number = parseInt(params.id, 10);
         assertValidNumber(id);
         const user: IUser = this._userService.find(ctx, id);
+        return user;
+    }
+
+    // --------------------------------------------------------------------------------------------
+    /** RequestHandler for creating a single user */
+    // --------------------------------------------------------------------------------------------
+    @post('')
+    @bodyValidation({
+        type: ETypes.OBJECT,
+        properties: {
+            username: {
+                type: ETypes.STRING,
+                required: true
+            }
+        }
+    })
+    public createOne(body: any, params: any, query: any) {
+        this._logger.info('POST /user - alternative version');
+        const ctx: Partial<IContext> = {
+            requestId: 'createAnotherUser-' + Date.now()
+        };
+        const user: IUser = this._userService.create(ctx, body);
         return user;
     }
 }

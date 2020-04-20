@@ -7,7 +7,12 @@ import {
     injectable,
 } from 'inversify';
 
-import express, { Router } from 'express';
+import express, {
+    NextFunction,
+    Request,
+    Response,
+    Router,
+} from 'express';
 
 import { isValidInteger } from '@emavok/ts-paranoia';
 
@@ -90,6 +95,11 @@ export class Application implements IApplication {
         // add all public endpoints
         this._publicEndpoints.forEach( (endpoint: IEndpointMapping) => {
             this.addPublicEndpoint(endpoint.path, endpoint.router);
+        });
+        // add error handler
+        this._app.use( (err: any, req: Request, res: Response, next: NextFunction) => {
+            this._logger.error(err.name + ': ' + err.message );
+            res.status( err.status || err.statusCode || 500).json(err);
         });
 
         let httpPort: number = 3000;

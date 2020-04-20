@@ -26,7 +26,7 @@ export class AssertionError extends Error {
     constructor(assertion: string, value?: any, details?: any, message?: string) {
         super(message || 'Assertion failed.');
         // Ensure the name of this error is the same as the class name
-        this.name = this.constructor.name;
+        this.name = 'AssertionError';
 
         // This clips the constructor invocation from the stack trace.
         // It's not absolutely essential, but it does make the stack trace a little nicer.

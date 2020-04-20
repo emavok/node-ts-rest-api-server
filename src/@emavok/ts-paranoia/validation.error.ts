@@ -16,6 +16,9 @@ export class ValidationError extends Error {
     /** additional error information - details validation errors */
     public data: IValidationErrorData;
 
+    /** error http status code */
+    public statusCode: number = 422;
+
     // --------------------------------------------------------------------------------------------
     /**
      * Constructor
@@ -28,7 +31,7 @@ export class ValidationError extends Error {
     constructor(errors: ValidationErrors, value?: any, schema?: IValidationSchema, message?: string) {
         super(message || 'Validation failed.');
         // Ensure the name of this error is the same as the class name
-        this.name = this.constructor.name;
+        this.name = 'ValidationError';
 
         // This clips the constructor invocation from the stack trace.
         // It's not absolutely essential, but it does make the stack trace a little nicer.

@@ -38,7 +38,7 @@ export interface IContext {
 /** Service calling context object */
 // ------------------------------------------------------------------------------------------------
 export interface IRepository<ID_TYPE, TYPE> {
-    // create(ctx: Partial<IContext>, user: Partial<TYPE>): TYPE;
+    create(ctx: Partial<IContext>, user: Partial<TYPE>): TYPE;
     find(ctx: Partial<IContext>, id: ID_TYPE): TYPE;
     // update(ctx: Partial<IContext>, user: TYPE): TYPE;
     // remove(ctx: Partial<IContext>, id: ID_TYPE): void;

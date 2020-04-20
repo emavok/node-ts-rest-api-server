@@ -50,6 +50,22 @@ export class UserService implements IUserService {
 
     // --------------------------------------------------------------------------------------------
     /**
+     * Creates a new user
+     * @param ctx Service context object (for transations, etc.)
+     * @param user User data
+     * @retval User entity
+     */
+    // --------------------------------------------------------------------------------------------
+    public create(ctx: Partial<IContext>, user: Partial<IUser>): IUser {
+        this._logger.info('create');
+        if (isNullOrUndefined(ctx.transaction)) {
+            ctx.transaction = 1;
+        }
+        return this._userRepository.create(ctx, user);
+    }
+
+    // --------------------------------------------------------------------------------------------
+    /**
      * Finds a user by its id - throws an NotFoundError if not found
      * @param ctx Service context object (for transations, etc.)
      * @param id User identifier

@@ -16,13 +16,14 @@ import { IContext } from '../common.types';
 
 import { EntityNotFoundError } from '../errors/not-found.error';
 
-import { assertValidNumber } from '@emavok/ts-paranoia';
+import { assertValidNumber, assertUndefined, assertStringNotEmpty, getSafe } from '@emavok/ts-paranoia';
 
 import {
     DI_LOGGER_SERVICE,
     ILogger,
     ILoggerService,
 } from '../base/base.types';
+import { ConflictError } from '../errors/conflict.error';
 
 @injectable()
 // ------------------------------------------------------------------------------------------------
@@ -70,6 +71,48 @@ export class UserRepository implements IUserRepository {
         // return a copy otherwise
         return {
             ...this._data[idx]
+        };
+    }
+
+    // --------------------------------------------------------------------------------------------
+    /**
+     * Creates a new user
+     * @param ctx Service context object (for transations, etc.)
+     * @param user User data
+     * @retval User entity
+     */
+    // --------------------------------------------------------------------------------------------
+    public create(ctx: Partial<IContext>, user: Partial<IUser>): IUser {
+        // no id must be provided
+        assertUndefined(user.id);
+        // but a username
+        assertStringNotEmpty(user.username);
+
+        // see if a user with that username already exists
+        const idx: number = this._data.findIndex( (usr: IUser) => {
+            return (usr.username === user.username);
+        });
+        // if found
+        if (idx !== -1) {
+            // throw an error
+            throw new ConflictError();
+        }
+        // get max id
+        const maxId: number = this._data.reduce( (latest: number, item: IUser) => {
+            if (item.id > latest) {
+                latest = item.id;
+            }
+            return latest;
+        }, 0);
+        // create new user and append it to the data
+        const newUser: IUser = {
+            id: maxId + 1,
+            username: getSafe(user.username, '')
+        };
+        this._data.push(newUser);
+        // return a copy
+        return {
+            ...newUser
         };
     }
 
