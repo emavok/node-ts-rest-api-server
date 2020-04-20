@@ -8,23 +8,18 @@ import {
 } from 'inversify';
 
 import {
-    Request,
-    Response,
-    Router,
-} from 'express';
-
-import {
     assertStringNotEmpty,
     assertValidNumber,
-    isNull,
 } from '@emavok/ts-paranoia';
 
-import { IContext } from './common.types';
+import {
+    IApiController,
+    IContext,
+} from './common.types';
 
 import {
     DI_USER_SERVICE,
     IUser,
-    IUserController,
     IUserService,
 } from './user/user.types';
 
@@ -33,18 +28,22 @@ import {
     ILogger,
     ILoggerService,
 } from './base/base.types';
+import { Controller } from './controller';
 
+import {
+    get,
+    restController,
+} from './decorators/rest.decorator';
+
+@restController('/user')
 @injectable()
 // ------------------------------------------------------------------------------------------------
 /** User REST controller */
 // ------------------------------------------------------------------------------------------------
-export class AnotherUserController implements IUserController {
+export class AnotherUserController extends Controller implements IApiController {
 
     /** user service */
     private _userService: IUserService;
-
-    /** router */
-    private _router: Router | null = null;
 
     /** logger */
     private _logger: ILogger;
@@ -56,48 +55,25 @@ export class AnotherUserController implements IUserController {
         @inject(DI_LOGGER_SERVICE) loggerService: ILoggerService,
         @inject(DI_USER_SERVICE) userService: IUserService
     ) {
+        super();
         this._logger = loggerService.getInstance(__filename);
         this._userService = userService;
         this._logger.info('Creating AnotherUserController');
     }
 
     // --------------------------------------------------------------------------------------------
-    /**
-     * Returns the routing object for this controller
-     * @return Router object
-     */
-    // --------------------------------------------------------------------------------------------
-    public getRouter(): Router {
-        // return existing if exists
-        if (!isNull(this._router)) {
-            return this._router;
-        }
-
-        // if not create new router object
-        const router: Router = Router();
-        router.get('/:id', this.getOne.bind(this) );
-
-        // save and return
-        this._router = router;
-        return this._router;
-    }
-
-    // --------------------------------------------------------------------------------------------
     /** RequestHandler for getting a single user */
     // --------------------------------------------------------------------------------------------
-    public getOne(req: Request, res: Response): void {
-        try {
-            this._logger.info('GET /user/:id - alternative version');
-            const ctx: Partial<IContext> = {
-                requestId: 'getAnotherUser-' + Date.now()
-            };
-            assertStringNotEmpty(req.params.id);
-            const id: number = parseInt(req.params.id, 10);
-            assertValidNumber(id);
-            const user: IUser = this._userService.find(ctx, id);
-            res.json(user);
-        } catch (err) {
-            res.status(500).json(err);
-        }
+    @get('/:id')
+    public getOne(body: any, params: any, query: any) {
+        this._logger.info('GET /user/:id - alternative version');
+        const ctx: Partial<IContext> = {
+            requestId: 'getAnotherUser-' + Date.now()
+        };
+        assertStringNotEmpty(params.id);
+        const id: number = parseInt(params.id, 10);
+        assertValidNumber(id);
+        const user: IUser = this._userService.find(ctx, id);
+        return user;
     }
 }

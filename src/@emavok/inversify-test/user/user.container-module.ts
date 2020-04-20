@@ -11,7 +11,6 @@ import {
     DI_USER_CONTROLLER,
     DI_USER_REPOSITORY,
     DI_USER_SERVICE,
-    IUserController,
     IUserRepository,
     IUserService,
 } from './user.types';
@@ -22,6 +21,8 @@ import { UserService } from './user.service';
 
 import { UserController } from './user.controller';
 
+import { IApiController } from '../common.types';
+
 export const USER_CONTAINER_MODULE = new ContainerModule(
     (
         bind: interfaces.Bind,
@@ -31,6 +32,6 @@ export const USER_CONTAINER_MODULE = new ContainerModule(
     ) => {
         bind<IUserRepository>(DI_USER_REPOSITORY).to(UserRepository);
         bind<IUserService>(DI_USER_SERVICE).to(UserService);
-        bind<IUserController>(DI_USER_CONTROLLER).to(UserController);
+        bind<IApiController>(DI_USER_CONTROLLER).to(UserController);
     }
 );

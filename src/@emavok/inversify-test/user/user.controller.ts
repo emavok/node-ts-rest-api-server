@@ -19,12 +19,14 @@ import {
     isNull,
 } from '@emavok/ts-paranoia';
 
-import { IContext } from '../common.types';
+import {
+    IApiController,
+    IContext,
+} from '../common.types';
 
 import {
     DI_USER_SERVICE,
     IUser,
-    IUserController,
     IUserService,
 } from './user.types';
 
@@ -38,7 +40,7 @@ import {
 // ------------------------------------------------------------------------------------------------
 /** User REST controller */
 // ------------------------------------------------------------------------------------------------
-export class UserController implements IUserController {
+export class UserController implements IApiController {
 
     /** user service */
     private _userService: IUserService;
