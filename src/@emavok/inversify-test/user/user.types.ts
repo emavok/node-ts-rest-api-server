@@ -28,8 +28,8 @@ export interface IUserController extends IApiController {
     // remove: TApiControllerFn;
 }
 
-export const DI_USER_REPOSITORY = Symbol('UserRepository');
+export const DI_USER_REPOSITORY = Symbol.for('UserRepository');
 
-export const DI_USER_SERVICE = Symbol('UserService');
+export const DI_USER_SERVICE = Symbol.for('UserService');
 
-export const DI_USER_CONTROLLER = Symbol('UserController');
+export const DI_USER_CONTROLLER = Symbol.for('UserController');

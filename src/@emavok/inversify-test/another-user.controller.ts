@@ -58,6 +58,7 @@ export class AnotherUserController implements IUserController {
     ) {
         this._logger = loggerService.getInstance(__filename);
         this._userService = userService;
+        this._logger.info('Creating AnotherUserController');
     }
 
     // --------------------------------------------------------------------------------------------

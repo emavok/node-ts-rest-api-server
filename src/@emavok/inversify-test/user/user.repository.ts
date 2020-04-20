@@ -3,7 +3,8 @@
 // ------------------------------------------------------------------------------------------------
 
 import {
-    injectable
+    inject,
+    injectable,
 } from 'inversify';
 
 import {
@@ -17,6 +18,12 @@ import { EntityNotFoundError } from '../errors/not-found.error';
 
 import { assertValidNumber } from '@emavok/ts-paranoia';
 
+import {
+    DI_LOGGER_SERVICE,
+    ILogger,
+    ILoggerService,
+} from '../base/base.types';
+
 @injectable()
 // ------------------------------------------------------------------------------------------------
 /** User repository service */
@@ -25,6 +32,19 @@ export class UserRepository implements IUserRepository {
 
     /** dummy user data */
     private _data: IUser[] = this._createData();
+
+    /** logger instance */
+    private _logger: ILogger;
+
+    // --------------------------------------------------------------------------------------------
+    /** constructor */
+    // --------------------------------------------------------------------------------------------
+    constructor(
+        @inject(DI_LOGGER_SERVICE) loggerService: ILoggerService,
+    ) {
+        this._logger  = loggerService.getInstance(__filename);
+        this._logger.info('Creating UserRepository');
+    }
 
     // --------------------------------------------------------------------------------------------
     /**

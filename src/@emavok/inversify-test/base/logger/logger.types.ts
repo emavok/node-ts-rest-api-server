@@ -86,4 +86,4 @@ export interface ILoggerService {
 // ------------------------------------------------------------------------------------------------
 /** Logger service symbol for dependency injection */
 // ------------------------------------------------------------------------------------------------
-export const DI_LOGGER_SERVICE = Symbol('LoggerService');
+export const DI_LOGGER_SERVICE = Symbol.for('LoggerService');

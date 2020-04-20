@@ -46,6 +46,7 @@ export class Application implements IApplication {
         @inject(DI_PUBLIC_ENDPOINTS) publicEndpoints: IEndpointMapping[]
     ) {
         this._logger = loggerService.getInstance(__filename);
+        this._logger.info('Creating Application');
         this._publicEndpoints = publicEndpoints;
 
         // setup common middleware

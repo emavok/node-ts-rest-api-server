@@ -44,6 +44,7 @@ export class UserService implements IUserService {
         @inject(DI_USER_REPOSITORY) userRepository: IUserRepository
     ) {
         this._logger = loggerService.getInstance(__filename);
+        this._logger.info('Creating UserService');
         this._userRepository = userRepository;
     }
 

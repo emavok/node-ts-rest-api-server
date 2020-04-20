@@ -43,4 +43,4 @@ export interface IEndpointMapping {
 // ------------------------------------------------------------------------------------------------
 /** Public api endpoint array dependency injection symbol */
 // ------------------------------------------------------------------------------------------------
-export const DI_PUBLIC_ENDPOINTS = Symbol('PublicApiEndpoints');
+export const DI_PUBLIC_ENDPOINTS = Symbol.for('PublicApiEndpoints');

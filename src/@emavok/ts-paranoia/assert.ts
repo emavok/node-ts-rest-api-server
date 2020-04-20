@@ -7,6 +7,7 @@ import { ETypes } from './validator.types';
 import {
     isArray,
     isBoolean,
+    isFunction,
     isIsoDate,
     isMax,
     isMaxLength,
@@ -116,6 +117,12 @@ export function assertObject( value: any, msg?: string ) {
 export function assertArray( value: any, msg?: string ) {
     if (!isArray(value)) {
         throw new AssertionError('assertArray', value, undefined, msg );
+    }
+}
+
+export function assertFunction( value: any, msg?: string ) {
+    if (!isFunction(value)) {
+        throw new AssertionError('assertFunction', value, undefined, msg );
     }
 }
 
